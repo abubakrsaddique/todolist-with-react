@@ -6,11 +6,11 @@ import { EditTodoForm } from './EditTodoForm';
 uuidv4();     
 
 export const TodoWrapper = () => {
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState([]);
 
   const addTodo = todo =>{
-    setTodos([...todos, {id: uuidv4(), task: todo ,completed: false, isEditing: false }])
-    console.log(todos)
+    setTodos([...todos, {id: uuidv4(), task: todo ,completed: false, isEditing: false } ,]);
+   
   }
 
   const toggleComplete =id => {
@@ -18,33 +18,42 @@ export const TodoWrapper = () => {
       ...todo, completed: !todo.completed} :todo))
   } 
     const deleteTodo = id =>{
-      setTodos(todos.filter(todo => todo.id !==id))
+      setTodos(todos.filter(todo => todo.id !==id)
+      );
     }
     const editTodo = id =>{
       setTodos(todos.map(todo=> todo.id === id ? {
-        ...todo, isEditing: !todo.isEditing } : todo))
+        ...todo, isEditing: !todo.isEditing } : todo)
+        );
     }
 
    const editTask =(task , id) => {
-    setTodos(todos.map(todo => todo.id===id ? {...todo , task , isEditing: !todo.isEditing} : todo))
+    setTodos(todos.map(todo => todo.id===id ? {...todo , task , isEditing: !todo.isEditing} : todo)
+    );
    }
 
   return (
     <div className='TodoWrapper' >
       <h1>Get Things Done</h1>
       <TodoForm addTodo={addTodo} />
-      {todos.map((todo , index) =>(
+      {todos.map((todo) =>(
         todo.isEditing ? (
           <EditTodoForm editTodo={editTask} task={todo}/>
         ) : (
-<Todo task={todo} key={index} toggleComplete={toggleComplete} deleteTodo={deleteTodo} editTodo={editTodo}/> 
+<Todo
+            key={todo.id}
+            task={todo}
+            deleteTodo={deleteTodo}
+            editTodo={editTodo}
+            toggleComplete={toggleComplete}
+          />
         )
         ))
 
       }
     </div>
-  )
-}
+  );
+};
 
 export default TodoWrapper
 
