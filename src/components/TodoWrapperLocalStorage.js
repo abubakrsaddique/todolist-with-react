@@ -56,4 +56,4 @@ export const TodoWrapperLocalStorage = () => {
          
     </div>
   )
-}
+};
